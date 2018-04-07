@@ -5,10 +5,10 @@ DUP_PAIR = /^.*(.{2}).*\1.*/ # duplicate pair
 DUP_LETTER_WITH_SEPERATOR = /^.*(.).\1.*$/ # duplicate char with one char in middle
 
 def test(rules)
-	File.readlines('data.txt').map do |line|
-		next 1 if rules.all? { |rule| rule =~ line }
-		0
-	end.reduce(:+)
+  File.readlines('data.txt').map do |line|
+    next 1 if rules.all? { |rule| rule =~ line }
+    0
+  end.reduce(:+)
 end
 
 puts "p1: #{test([ VOWELS, DUPS, BLACK_LIST ])}"
