@@ -1,8 +1,8 @@
-VOWELS = /^.*[aeiou].*[aeiou].*[aeiou].*$/ # at least three vowels
-DUPS = /^.*(.)\1.*$/ # consecutive duplicate character
-BLACK_LIST = /^(?!.*(ab|cd|pq|xy)).*$/ # does not contain ab, cd, pq, xy
-DUP_PAIR = /^.*(.{2}).*\1.*/ # duplicate pair
-DUP_LETTER_WITH_SEPERATOR = /^.*(.).\1.*$/ # duplicate char with one char in middle
+VOWELS = /^.*[aeiou].*[aeiou].*[aeiou].*$/.freeze # at least three vowels
+DUPS = /^.*(.)\1.*$/.freeze # consecutive duplicate character
+BLACK_LIST = /^(?!.*(ab|cd|pq|xy)).*$/.freeze # does not contain ab, cd, pq, xy
+DUP_PAIR = /^.*(.{2}).*\1.*/.freeze # duplicate pair
+DUP_LETTER_WITH_SEPERATOR = /^.*(.).\1.*$/.freeze # duplicate char with one char in middle
 
 def test(rules)
   File.readlines('data.txt').map do |line|
