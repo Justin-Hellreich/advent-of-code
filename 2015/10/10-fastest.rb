@@ -1,4 +1,4 @@
-# insperation for fastest solution from here
+# inspiration for fastest solution from here
 # https://rosettacode.org/wiki/Look-and-say_sequence#Ruby
 
 INPUT = '3113322113'
