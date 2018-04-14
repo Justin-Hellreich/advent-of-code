@@ -1,6 +1,7 @@
 #!/bin/bash
 
 # TODO: just use spec if this gets more complicated
+# i.e. if running specific tests is needed
 
 cleanup () {
   rm temp.txt diff.txt
