@@ -16,5 +16,5 @@ def read_file
   end.reduce(:+)
 end
 
-puts read_file { |h| paper_size(h) }
-puts read_file { |h| ribbon_size(h) }
+puts "p1: #{ read_file { |h| paper_size(h) } }"
+puts "p2: #{ read_file { |h| ribbon_size(h) } }"

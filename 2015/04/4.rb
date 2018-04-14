@@ -8,4 +8,4 @@ def find_hash(num_zeroes_prefix: 5)
 end
 
 puts "p1: #{find_hash(num_zeroes_prefix: 5)}"
-puts "p1: #{find_hash(num_zeroes_prefix: 6)}"
+puts "p2: #{find_hash(num_zeroes_prefix: 6)}"

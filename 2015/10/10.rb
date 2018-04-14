@@ -1,24 +1,11 @@
+# inspiration for fastest solution from here
+# https://rosettacode.org/wiki/Look-and-say_sequence#Ruby
+
 INPUT = '3113322113'
+REGEX = /(\d)\1*/.freeze
 
 def look_and_say(str)
-  new_str = ''
-
-  while str != ''
-    new_num = count_consecutive(str)
-    new_str << new_num.to_s
-    new_str << str[0] # append old num
-
-    # remove all consecutive nums from start
-    str[0..new_num-1] = ''
-  end
-
-  new_str
-end
-
-def count_consecutive(str)
-  i = 1
-  i += 1 while str[i] == str[0]
-  i
+  str.gsub(REGEX) { |s| "#{s.size}#{s[0]}" }
 end
 
 str = INPUT
@@ -26,5 +13,5 @@ str = INPUT
 puts "p1: #{str.size}"
 
 str = INPUT
-50.times { str = look_and_say(str) } # this'll take a while..
+50.times { str = look_and_say(str) }
 puts "p2: #{str.size}"

@@ -5,7 +5,7 @@ def find_floor
     break if (block_given? && yield(floor, i)) # expose block with control to break
   end
 
-  floor
+  floor + 1
 end
 
 puts "p1: #{find_floor}"
