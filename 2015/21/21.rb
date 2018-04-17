@@ -42,7 +42,7 @@ STORE = {
   rings: [
     [25, 1, 0], [50, 2, 0], [100, 3, 0], [20, 0, 1], [40, 0, 2], [80, 0, 3], [0, 0, 0]
   ].combination(2).to_a
-}
+}.freeze
 
 def find_costs(should_win:)
   costs = []
