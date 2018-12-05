@@ -7,7 +7,7 @@ def count(total, containers, size = nil)
   return 0 if containers.empty? || total < 0
 
   count(total - containers.first, containers.drop(1), size.nil? ? nil : size - 1) + 
-  count(total, containers.drop(1), size || nil)
+    count(total, containers.drop(1), size || nil)
 end
 
 # Dynamic programming table to find the min
