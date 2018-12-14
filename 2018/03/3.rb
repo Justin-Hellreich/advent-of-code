@@ -17,39 +17,41 @@ class FabricSquare
 
   def initialize
     @claims = parse_file
+    @grid = Array.new(1000) { Array.new(1000, 0) }
   end
 
-  def get_total_overlapping
-    overlapping_claims = get_overlapping_claims
-
-    # TODO: need to track which squares are already overlapping
-    overlapping_claims.map(&method(:overlapping_area)).sum
+  def overlapping_squares_count
+    @claims.each { |c| track_squares c }
+    @grid.map { |row| row.select { |cell| cell > 1 }.size }.reduce(:+)
   end
 
-  def get_overlapping_claims
-    claims = []
-    @claims.each.with_index do |claim1, i|
-      @claims[i..-1].each do |claim2|
-        claims << [claim1, claim2] if overlap?(claim1, claim2)
+  def find_non_overlapping_claim
+    @claims.each do |claim1|
+      overlaps = false
+      @claims.each do |claim2|
+        if overlap?(claim1, claim2)
+          overlaps = true
+          break
+        end
       end
+
+      return claim1 unless overlaps
     end
-
-    claims
-  end
-
-  def overlapping_area(claim_pair)
-    claim1, claim2 = claim_pair
-    x = [claim1.x2, claim2.x2].min - [claim1.x1, claim2.x1].max
-    y = [claim1.y2, claim2.y2].min - [claim1.y1, claim2.y1].max
-
-    x * y
   end
 
   private
 
+  def track_squares(claim)
+    (claim.x1..claim.x2-1).each do |i|
+      (claim.y1..claim.y2-1).each do |j|
+        @grid[i][j] += 1
+      end
+    end
+  end
+
   def overlap?(claim1, claim2)
     (
-      claim1.x1 < claim2.x1 &&
+      claim1.x1 < claim2.x2 &&
       claim1.x2 > claim2.x1 &&
       claim1.y1 < claim2.y2 &&
       claim1.y2 > claim2.y1
@@ -63,4 +65,5 @@ class FabricSquare
   end
 end
 
-puts FabricSquare.new.get_total_overlapping
+puts FabricSquare.new.overlapping_squares_count
+puts FabricSquare.new.find_non_overlapping_claim.id
