@@ -8,12 +8,66 @@ class PowerGrid
     end
   end
 
+  def compute_grid
+    arr = []
+    (0..299).each do |i|
+      arr[i] = []
+      (0..299).each do |j|
+        arr[i][j] = []
+      end
+    end
+
+    (0..299).each do |i|
+      (0..299).each do |j|
+        arr[i][j][0] = 0
+        arr[i][j][1] = p(i, j)
+      end
+    end
+
+    (0..299).each do |w|
+      (0..299).each do |h|
+        (2..299).each do |size|
+          if size + w > 299 || size + h > 299
+            arr[w][h][size] = -Float::INFINITY
+            next
+          end
+
+          # these can be factored out to save a ton of time
+          sum_1 = (h..(h + size - 1)).map { |i| p(w + size - 1, i) }.sum
+          sum_2 = (w..(w + size - 1)).map { |i| p(i, h + size - 1) }.sum
+          arr[w][h][size] = arr[w][h][size - 1] + sum_1 + sum_2 - p(w + size - 1, h + size - 1)
+        end
+      end
+    end
+
+    max = -Float::INFINITY
+    _i, _j, _k = 0
+    (0..299).each do |i|
+      (0..299).each do |j|
+        (0..299).each do |k|
+          if arr[i][j][k] > max
+            _i = i
+            _j = j
+            _k = k
+            max = arr[i][j][k]
+          end
+        end
+      end
+    end
+
+    puts "(#{_i + 1},#{_j + 1},#{_k})"
+  end
+
   def max_power_cell
     cell = power_cells.max_by { |c| c[:cell_power] }
     "#{cell[:x]},#{cell[:y]}"
   end
 
   private
+
+  def p(x, y)
+    @grid[x][y]
+  end
 
   RANGE = (1..297)
   def power_cells
@@ -53,4 +107,5 @@ class PowerGrid
 end
 
 puts PowerGrid.new(serial_num: 9221).max_power_cell
+puts PowerGrid.new(serial_num: 9221).compute_grid
 
