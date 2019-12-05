@@ -1,33 +1,33 @@
 class Rocket
-	def initialize
-		@module_masses = parse_file
-	end
+  def initialize
+    @module_masses = parse_file
+  end
 
-	def fuel_requirements
-		@module_masses.map { |m| fuel(m) }.reduce(:+)
-	end
+  def fuel_requirements
+    @module_masses.map { |m| fuel(m) }.reduce(:+)
+  end
 
-	private
+  private
 
-	def parse_file
+  def parse_file
     File.readlines('data.txt').map(&:to_i)
   end
 end
 
 class PartOneRocket < Rocket
-	def fuel(mass)
-		mass / 3 - 2
-	end
+  def fuel(mass)
+    mass / 3 - 2
+  end
 end
 
 class PartTwoRocket < Rocket
-	def fuel(mass)
-		return 0 if mass <= 0
+  def fuel(mass)
+    return 0 if mass <= 0
 
-		_fuel = mass / 3 - 2
-		_fuel = 0 if _fuel < 0
-		_fuel + fuel(_fuel)
-	end
+    _fuel = mass / 3 - 2
+    _fuel = 0 if _fuel < 0
+    _fuel + fuel(_fuel)
+  end
 end
 
 puts PartOneRocket.new.fuel_requirements
